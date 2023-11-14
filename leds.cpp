@@ -11,6 +11,7 @@
  */
 static void _setLedValue(uint8_t ledNumber, int value)
 {
+    if (ledNumber < 0 || ledNumber > 3) return;
     analogWrite(LED_NUM_TO_PIN(ledNumber), value);
 }
 

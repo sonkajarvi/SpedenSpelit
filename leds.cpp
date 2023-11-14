@@ -1,25 +1,40 @@
 #include "leds.h"
 
+#define LED_NUM_TO_PIN(x) (A2 + x)
+
+
+/**
+ * @brief Sets a led to the given value
+ * 
+ * @param ledNumber led index, 0-3
+ * @param value between 0 and 255
+ */
+static void _setLedValue(uint8_t ledNumber, int value)
+{
+    analogWrite(LED_NUM_TO_PIN(ledNumber), value);
+}
+
 
 void initializeLeds()
 {
-// see requirements for this function from leds.h
+    for (int i = 0; i < 4; i++) pinMode(LED_NUM_TO_PIN(i), OUTPUT);
 }
 
-void setLed(byte ledNumber)
+void setLed(uint8_t ledNumber)
 {
-// see requirements for this function from leds.h
+    if (ledNumber < 0 || ledNumber > 3) return;
 
+    clearAllLeds();
+    _setLedValue(0, 255);
 }
 
 
 void clearAllLeds()
 {
-// see requirements for this function from leds.h
- 
+    for (int i = 0; i < 4; i++) _setLedValue(i, 0);
 }
 
 void setAllLeds()
 {
-// see requirements for this function from leds.h
+    for (int i = 0; i < 4; i++) _setLedValue(i, 255);
 }

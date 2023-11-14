@@ -38,4 +38,12 @@ void clearAllLeds(void);
 void setAllLeds(void);
 
 
+/**
+ * @brief Test led functions
+ * 
+ * @param timeBetween time between led changes
+ */
+void testLeds(int timeBetween = 500);
+
+
 #endif /* LEDS_H_ */

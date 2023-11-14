@@ -25,7 +25,7 @@ void setLed(uint8_t ledNumber)
     if (ledNumber < 0 || ledNumber > 3) return;
 
     clearAllLeds();
-    _setLedValue(0, 255);
+    _setLedValue(ledNumber, 255);
 }
 
 
@@ -34,7 +34,32 @@ void clearAllLeds()
     for (int i = 0; i < 4; i++) _setLedValue(i, 0);
 }
 
+
 void setAllLeds()
 {
     for (int i = 0; i < 4; i++) _setLedValue(i, 255);
+}
+
+
+void testLeds(int timeBetween)
+{
+    // blink each led in order
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        setLed(i);
+        delay(timeBetween);
+    }
+
+    // blink all leds twice
+    for (int i = 0; i < 2; i++)
+    {
+        clearAllLeds();
+        delay(timeBetween);
+        
+        setAllLeds();
+        delay(timeBetween);
+    }
+    
+    clearAllLeds();
+    delay(timeBetween);
 }

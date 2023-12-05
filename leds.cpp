@@ -1,6 +1,20 @@
 #include "leds.h"
 
-#define LED_NUM_TO_PIN(x) (A2 + x)
+
+static uint8_t __pins[4];
+
+
+/**
+ * @brief Get the pin that corresponds to the led number
+ * 
+ * @param ledNumber led index, 0-3
+ * @return pin number
+ */
+static uint8_t _ledNumToPin(uint8_t ledNumber)
+{
+    if (ledNumber < 0 || ledNumber > 3) return 0;
+    return __pins[ledNumber];
+}
 
 
 /**
@@ -12,13 +26,14 @@
 static void _setLedValue(uint8_t ledNumber, int value)
 {
     if (ledNumber < 0 || ledNumber > 3) return;
-    analogWrite(LED_NUM_TO_PIN(ledNumber), value);
+    analogWrite(_ledNumToPin(ledNumber), value);
 }
 
 
-void initializeLeds()
+void initializeLeds(uint8_t p0, uint8_t p1, uint8_t p2, uint8_t p3)
 {
-    for (int i = 0; i < 4; i++) pinMode(LED_NUM_TO_PIN(i), OUTPUT);
+    __pins[0] = p0; __pins[1] = p1; __pins[2] = p2; __pins[3] = p3;
+    for (int i = 0; i < 4; i++) pinMode(_ledNumToPin(i), OUTPUT);
 }
 
 void setLed(uint8_t ledNumber)
